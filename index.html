@@ -3,32 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QRme</title>
+    <title>Universal QR Generator</title>
     <link rel="stylesheet" href="styles.css">
     <script type="text/javascript" src="qr-code-styling.js"></script>
 </head>
 <body>
 
-<!-- Ambient background grid -->
-<div class="bg-grid" aria-hidden="true"></div>
-<div class="bg-glow" aria-hidden="true"></div>
-
 <header class="app-header">
     <div class="app-header-inner">
         <div class="app-logo">
-            <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
-                <rect x="2" y="2" width="10" height="10" rx="2.5" fill="url(#lg1)"/>
-                <rect x="16" y="2" width="10" height="10" rx="2.5" fill="url(#lg1)" opacity=".5"/>
-                <rect x="2" y="16" width="10" height="10" rx="2.5" fill="url(#lg1)" opacity=".5"/>
-                <rect x="18" y="18" width="6" height="6" rx="1.5" fill="#a78bfa"/>
-                <defs><linearGradient id="lg1" x1="2" y1="2" x2="12" y2="12" gradientUnits="userSpaceOnUse"><stop stop-color="#6366f1"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs>
-            </svg>
-            <span class="logo-text">QR<span class="logo-accent">me</span></span>
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="2" y="2" width="10" height="10" rx="2" fill="#4f6ef7"/><rect x="16" y="2" width="10" height="10" rx="2" fill="#4f6ef7" opacity=".6"/><rect x="2" y="16" width="10" height="10" rx="2" fill="#4f6ef7" opacity=".6"/><rect x="18" y="18" width="6" height="6" rx="1" fill="#6ee7b7"/><rect x="16" y="16" width="4" height="4" rx="1" fill="#6ee7b7" opacity=".4"/></svg>
+            <span>QRme</span>
         </div>
-        <button class="theme-toggle" id="themeToggle" title="Toggle theme">
-            <svg id="iconSun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-            <svg id="iconMoon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-        </button>
+        <button class="theme-toggle" id="themeToggle" title="Toggle theme">☀️</button>
     </div>
 </header>
 
@@ -37,244 +24,217 @@
     <!-- ===== LEFT: CONTROLS ===== -->
     <div class="controls">
 
-        <!-- ── QR TYPE SELECTOR ── -->
+        <!-- ── QR TYPE TABS ── -->
         <div class="section-block">
-            <div class="section-header">
-                <span class="section-label">Content Type</span>
-                <span class="section-meta" id="activeTypeName">URL</span>
+            <p class="section-title">QR Type</p>
+            <div class="tabs" id="tabContainer">
+                <button class="tab-btn active" data-type="url">URL</button>
+                <button class="tab-btn" data-type="text">Text</button>
+                <button class="tab-btn" data-type="wifi">WiFi</button>
+                <button class="tab-btn" data-type="vcard">vCard</button>
+                <button class="tab-btn" data-type="whatsapp">WhatsApp</button>
+                <button class="tab-btn" data-type="sms">SMS</button>
+                <button class="tab-btn" data-type="email">Email</button>
+                <button class="tab-btn" data-type="phone">Phone</button>
+                <button class="tab-btn" data-type="crypto">Crypto</button>
+                <button class="tab-btn" data-type="event">Event</button>
+                <button class="tab-btn" data-type="location">Location</button>
+                <button class="tab-btn" data-type="applink">App Link</button>
+                <button class="tab-btn" data-type="esim">eSIM</button>
             </div>
 
-            <div class="type-grid" id="tabContainer">
-                <button class="type-tile active" data-type="url">
-                    <span class="type-icon">🔗</span>
-                    <span class="type-name">URL</span>
-                </button>
-                <button class="type-tile" data-type="text">
-                    <span class="type-icon">📝</span>
-                    <span class="type-name">Text</span>
-                </button>
-                <button class="type-tile" data-type="wifi">
-                    <span class="type-icon">📶</span>
-                    <span class="type-name">WiFi</span>
-                </button>
-                <button class="type-tile" data-type="vcard">
-                    <span class="type-icon">👤</span>
-                    <span class="type-name">vCard</span>
-                </button>
-                <button class="type-tile" data-type="whatsapp">
-                    <span class="type-icon">💬</span>
-                    <span class="type-name">WhatsApp</span>
-                </button>
-                <button class="type-tile" data-type="sms">
-                    <span class="type-icon">💭</span>
-                    <span class="type-name">SMS</span>
-                </button>
-                <button class="type-tile" data-type="email">
-                    <span class="type-icon">✉️</span>
-                    <span class="type-name">Email</span>
-                </button>
-                <button class="type-tile" data-type="phone">
-                    <span class="type-icon">📞</span>
-                    <span class="type-name">Phone</span>
-                </button>
-                <button class="type-tile" data-type="crypto">
-                    <span class="type-icon">₿</span>
-                    <span class="type-name">Crypto</span>
-                </button>
-                <button class="type-tile" data-type="event">
-                    <span class="type-icon">📅</span>
-                    <span class="type-name">Event</span>
-                </button>
-                <button class="type-tile" data-type="location">
-                    <span class="type-icon">📍</span>
-                    <span class="type-name">Location</span>
-                </button>
-                <button class="type-tile" data-type="applink">
-                    <span class="type-icon">📲</span>
-                    <span class="type-name">App Link</span>
-                </button>
-                <button class="type-tile" data-type="esim">
-                    <span class="type-icon">📡</span>
-                    <span class="type-name">eSIM</span>
-                </button>
+            <!-- Form: URL -->
+            <div id="form-url" class="qr-form active">
+                <div class="control-group">
+                    <label>Website URL</label>
+                    <input type="text" id="urlInput" value="https://example.com" placeholder="https://...">
+                </div>
             </div>
 
-            <!-- Forms -->
-            <div class="form-area">
-                <div id="form-url" class="qr-form active">
+            <!-- Form: Text -->
+            <div id="form-text" class="qr-form">
+                <div class="control-group">
+                    <label>Plain Text</label>
+                    <textarea id="textInput" placeholder="Enter your text here..."></textarea>
+                </div>
+            </div>
+
+            <!-- Form: WiFi -->
+            <div id="form-wifi" class="qr-form">
+                <div class="grid-2">
                     <div class="control-group">
-                        <label>Website URL</label>
-                        <div class="input-with-icon">
-                            <span class="input-icon">🔗</span>
-                            <input type="text" id="urlInput" value="https://example.com" placeholder="https://...">
-                        </div>
+                        <label>Network Name (SSID)</label>
+                        <input type="text" id="wifiSsid" placeholder="MyWiFiNetwork">
                     </div>
-                </div>
-
-                <div id="form-text" class="qr-form">
                     <div class="control-group">
-                        <label>Plain Text</label>
-                        <textarea id="textInput" placeholder="Enter your text here..."></textarea>
+                        <label>Password</label>
+                        <input type="text" id="wifiPass" placeholder="Password123">
                     </div>
-                </div>
-
-                <div id="form-wifi" class="qr-form">
-                    <div class="grid-2">
-                        <div class="control-group">
-                            <label>Network Name (SSID)</label>
-                            <input type="text" id="wifiSsid" placeholder="MyWiFiNetwork">
-                        </div>
-                        <div class="control-group">
-                            <label>Password</label>
-                            <input type="text" id="wifiPass" placeholder="Password123">
-                        </div>
-                        <div class="control-group">
-                            <label>Encryption</label>
-                            <select id="wifiType">
-                                <option value="WPA">WPA/WPA2/WPA3</option>
-                                <option value="WEP">WEP</option>
-                                <option value="nopass">None</option>
-                            </select>
-                        </div>
-                        <div class="inline-check" style="margin-top:1.5rem">
-                            <input type="checkbox" id="wifiHidden">
-                            <label for="wifiHidden">Hidden Network</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="form-vcard" class="qr-form">
-                    <div class="vcard-name-block">
-                        <div class="vcard-name-row">
-                            <input type="text" id="vcardFirst" placeholder="First name" class="vcard-name-input">
-                            <input type="text" id="vcardLast"  placeholder="Last name"  class="vcard-name-input">
-                        </div>
-                        <input type="text" id="vcardCompany" placeholder="Company" class="vcard-company-input">
-                    </div>
-                    <div id="vcardFieldList" class="vcard-field-list"></div>
-                    <div class="vcard-add-row" id="vcardAddRow">
-                        <button class="vcard-add-main-btn" id="vcardAddBtn">
-                            <span class="vcard-add-icon">+</span>
-                            add field
-                        </button>
-                    </div>
-                    <div class="vcard-picker-sheet hidden" id="vcardPickerSheet">
-                        <div class="vcard-picker-header">
-                            <span>Add Field</span>
-                            <button class="vcard-picker-close" id="vcardPickerClose">✕</button>
-                        </div>
-                        <div class="vcard-picker-list" id="vcardPickerList"></div>
-                    </div>
-                </div>
-
-                <div id="form-whatsapp" class="qr-form">
-                    <div class="control-group"><label>Phone (with country code)</label><input type="text" id="waPhone" placeholder="+1234567890"></div>
-                    <div class="control-group" style="margin-top:.85rem"><label>Pre-filled Message</label><textarea id="waMessage" placeholder="Hello!"></textarea></div>
-                </div>
-
-                <div id="form-sms" class="qr-form">
-                    <div class="control-group"><label>Phone Number</label><input type="text" id="smsPhone" placeholder="+1234567890"></div>
-                    <div class="control-group" style="margin-top:.85rem"><label>Message</label><textarea id="smsMessage" placeholder="Type message..."></textarea></div>
-                </div>
-
-                <div id="form-email" class="qr-form">
-                    <div class="control-group"><label>Send To</label><input type="text" id="emailAddress" placeholder="hello@example.com"></div>
-                    <div class="control-group" style="margin-top:.75rem"><label>Subject</label><input type="text" id="emailSubject" placeholder="Inquiry"></div>
-                    <div class="control-group" style="margin-top:.75rem"><label>Body</label><textarea id="emailBody" placeholder="Write email here..."></textarea></div>
-                </div>
-
-                <div id="form-phone" class="qr-form">
                     <div class="control-group">
-                        <label>Phone Number (with country code)</label>
-                        <input type="text" id="phoneNumber" placeholder="+1234567890">
+                        <label>Encryption</label>
+                        <select id="wifiType">
+                            <option value="WPA">WPA/WPA2/WPA3</option>
+                            <option value="WEP">WEP</option>
+                            <option value="nopass">None</option>
+                        </select>
+                    </div>
+                    <div class="inline-check" style="margin-top:1.5rem">
+                        <input type="checkbox" id="wifiHidden">
+                        <label for="wifiHidden">Hidden Network</label>
                     </div>
                 </div>
+            </div>
 
-                <div id="form-crypto" class="qr-form">
-                    <div class="grid-2">
-                        <div class="control-group">
-                            <label>Coin</label>
-                            <select id="cryptoCoin">
-                                <option value="bitcoin">Bitcoin (BTC)</option>
-                                <option value="ethereum">Ethereum (ETH)</option>
-                                <option value="litecoin">Litecoin (LTC)</option>
-                            </select>
-                        </div>
-                        <div class="control-group">
-                            <label>Amount (optional)</label>
-                            <input type="text" id="cryptoAmount" placeholder="0.001">
-                        </div>
-                        <div class="control-group" style="grid-column:span 2">
-                            <label>Wallet Address</label>
-                            <input type="text" id="cryptoAddress" placeholder="1A1zP1eP5QGefi2DMPTfTL5...">
-                        </div>
-                        <div class="control-group" style="grid-column:span 2">
-                            <label>Label / Note</label>
-                            <input type="text" id="cryptoLabel" placeholder="Payment for invoice #42">
-                        </div>
+            <!-- Form: vCard (dynamic iPhone-style) -->
+            <div id="form-vcard" class="qr-form">
+
+                <!-- Fixed: Name block -->
+                <div class="vcard-name-block">
+                    <div class="vcard-name-row">
+                        <input type="text" id="vcardFirst" placeholder="First name" class="vcard-name-input">
+                        <input type="text" id="vcardLast"  placeholder="Last name"  class="vcard-name-input">
+                    </div>
+                    <input type="text" id="vcardCompany" placeholder="Company" class="vcard-company-input">
+                </div>
+
+                <!-- Dynamic fields list -->
+                <div id="vcardFieldList" class="vcard-field-list"></div>
+
+                <!-- Add field button -->
+                <div class="vcard-add-row" id="vcardAddRow">
+                    <button class="vcard-add-main-btn" id="vcardAddBtn">
+                        <span class="vcard-add-icon">+</span>
+                        add field
+                    </button>
+                </div>
+
+                <!-- Field type picker (hidden sheet) -->
+                <div class="vcard-picker-sheet hidden" id="vcardPickerSheet">
+                    <div class="vcard-picker-header">
+                        <span>Add Field</span>
+                        <button class="vcard-picker-close" id="vcardPickerClose">✕</button>
+                    </div>
+                    <div class="vcard-picker-list" id="vcardPickerList"></div>
+                </div>
+
+            </div>
+
+            <!-- Form: WhatsApp -->
+            <div id="form-whatsapp" class="qr-form">
+                <div class="control-group"><label>Phone (with country code)</label><input type="text" id="waPhone" placeholder="1234567890"></div>
+                <div class="control-group" style="margin-top:1rem"><label>Pre-filled Message</label><textarea id="waMessage" placeholder="Hello!"></textarea></div>
+            </div>
+
+            <!-- Form: SMS -->
+            <div id="form-sms" class="qr-form">
+                <div class="control-group"><label>Phone Number</label><input type="text" id="smsPhone" placeholder="1234567890"></div>
+                <div class="control-group" style="margin-top:1rem"><label>Message</label><textarea id="smsMessage" placeholder="Type message..."></textarea></div>
+            </div>
+
+            <!-- Form: Email -->
+            <div id="form-email" class="qr-form">
+                <div class="control-group"><label>Send To</label><input type="text" id="emailAddress" placeholder="hello@example.com"></div>
+                <div class="control-group" style="margin-top:.75rem"><label>Subject</label><input type="text" id="emailSubject" placeholder="Inquiry"></div>
+                <div class="control-group" style="margin-top:.75rem"><label>Body</label><textarea id="emailBody" placeholder="Write email here..."></textarea></div>
+            </div>
+
+            <!-- Form: Phone Call -->
+            <div id="form-phone" class="qr-form">
+                <div class="control-group">
+                    <label>Phone Number (with country code)</label>
+                    <input type="text" id="phoneNumber" placeholder="+1234567890">
+                </div>
+            </div>
+
+            <!-- Form: Crypto -->
+            <div id="form-crypto" class="qr-form">
+                <div class="grid-2">
+                    <div class="control-group">
+                        <label>Coin</label>
+                        <select id="cryptoCoin">
+                            <option value="bitcoin">Bitcoin (BTC)</option>
+                            <option value="ethereum">Ethereum (ETH)</option>
+                            <option value="litecoin">Litecoin (LTC)</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label>Amount (optional)</label>
+                        <input type="text" id="cryptoAmount" placeholder="0.001">
+                    </div>
+                    <div class="control-group" style="grid-column:span 2">
+                        <label>Wallet Address</label>
+                        <input type="text" id="cryptoAddress" placeholder="1A1zP1eP5QGefi2DMPTfTL5SLmv7Divf...">
+                    </div>
+                    <div class="control-group" style="grid-column:span 2">
+                        <label>Label / Note (optional)</label>
+                        <input type="text" id="cryptoLabel" placeholder="Payment for invoice #42">
                     </div>
                 </div>
+            </div>
 
-                <div id="form-event" class="qr-form">
-                    <div class="grid-2">
-                        <div class="control-group" style="grid-column:span 2"><label>Event Title</label><input type="text" id="eventTitle" placeholder="Team Meeting"></div>
-                        <div class="control-group"><label>Start</label><input type="datetime-local" id="eventStart"></div>
-                        <div class="control-group"><label>End</label><input type="datetime-local" id="eventEnd"></div>
-                        <div class="control-group" style="grid-column:span 2"><label>Location</label><input type="text" id="eventLocation" placeholder="Conference Room / Zoom link"></div>
-                        <div class="control-group" style="grid-column:span 2"><label>Description</label><textarea id="eventDesc" placeholder="Meeting agenda..."></textarea></div>
+            <!-- Form: Calendar Event -->
+            <div id="form-event" class="qr-form">
+                <div class="grid-2">
+                    <div class="control-group" style="grid-column:span 2"><label>Event Title</label><input type="text" id="eventTitle" placeholder="Team Meeting"></div>
+                    <div class="control-group"><label>Start Date & Time</label><input type="datetime-local" id="eventStart"></div>
+                    <div class="control-group"><label>End Date & Time</label><input type="datetime-local" id="eventEnd"></div>
+                    <div class="control-group" style="grid-column:span 2"><label>Location</label><input type="text" id="eventLocation" placeholder="Conference Room / Zoom link"></div>
+                    <div class="control-group" style="grid-column:span 2"><label>Description</label><textarea id="eventDesc" placeholder="Meeting agenda..."></textarea></div>
+                </div>
+            </div>
+
+            <!-- Form: Location -->
+            <div id="form-location" class="qr-form">
+                <div class="grid-2">
+                    <div class="control-group"><label>Latitude</label><input type="text" id="locLat" placeholder="40.7128"></div>
+                    <div class="control-group"><label>Longitude</label><input type="text" id="locLng" placeholder="-74.0060"></div>
+                    <div class="control-group" style="grid-column:span 2"><label>Or enter a place name / address</label><input type="text" id="locQuery" placeholder="Eiffel Tower, Paris"></div>
+                </div>
+                <p class="form-hint">Coordinates take priority over place name if both are filled.</p>
+            </div>
+
+            <!-- Form: App Link -->
+            <div id="form-applink" class="qr-form">
+                <div class="grid-2">
+                    <div class="control-group">
+                        <label>Platform</label>
+                        <select id="appPlatform">
+                            <option value="ios">App Store (iOS)</option>
+                            <option value="android">Play Store (Android)</option>
+                            <option value="both">Smart Link (both)</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label>App ID / Package</label>
+                        <input type="text" id="appId" placeholder="com.example.app or 123456789">
                     </div>
                 </div>
+                <p class="form-hint">For iOS enter the numeric App Store ID. For Android use the package name.</p>
+            </div>
 
-                <div id="form-location" class="qr-form">
-                    <div class="grid-2">
-                        <div class="control-group"><label>Latitude</label><input type="text" id="locLat" placeholder="40.7128"></div>
-                        <div class="control-group"><label>Longitude</label><input type="text" id="locLng" placeholder="-74.0060"></div>
-                        <div class="control-group" style="grid-column:span 2"><label>Or place name / address</label><input type="text" id="locQuery" placeholder="Eiffel Tower, Paris"></div>
-                    </div>
-                    <p class="form-hint">Coordinates take priority over place name if both are filled.</p>
+            <!-- Form: eSIM -->
+            <div id="form-esim" class="qr-form">
+                <div class="grid-2">
+                    <div class="control-group"><label>SM-DP+ Address</label><input type="text" id="esimSmdp" value="rsp.truphone.com"></div>
+                    <div class="control-group"><label>Activation Code</label><input type="text" id="esimCode" value="ACT-12345"></div>
                 </div>
+            </div>
 
-                <div id="form-applink" class="qr-form">
-                    <div class="grid-2">
-                        <div class="control-group">
-                            <label>Platform</label>
-                            <select id="appPlatform">
-                                <option value="ios">App Store (iOS)</option>
-                                <option value="android">Play Store (Android)</option>
-                            </select>
-                        </div>
-                        <div class="control-group">
-                            <label>App ID / Package</label>
-                            <input type="text" id="appId" placeholder="com.example.app">
-                        </div>
-                    </div>
-                </div>
-
-                <div id="form-esim" class="qr-form">
-                    <div class="grid-2">
-                        <div class="control-group"><label>SM-DP+ Address</label><input type="text" id="esimSmdp" value="rsp.truphone.com"></div>
-                        <div class="control-group"><label>Activation Code</label><input type="text" id="esimCode" value="ACT-12345"></div>
-                    </div>
-                </div>
-
-                <!-- Raw string -->
-                <div class="raw-data-row">
-                    <span class="raw-data-label">Encoded data</span>
-                    <div id="rawStringDisplay" class="readonly-string">https://example.com</div>
-                </div>
+            <!-- Raw String -->
+            <div class="control-group" style="margin-top:1.25rem">
+                <label>Raw QR Data</label>
+                <div id="rawStringDisplay" class="readonly-string">https://example.com</div>
             </div>
         </div>
 
         <div class="divider"></div>
 
-        <!-- ── DESIGN ── -->
+        <!-- ── DESIGN PATTERN ── -->
         <div class="section-block">
-            <div class="section-header">
-                <span class="section-label">Design</span>
-            </div>
+            <p class="section-title">Design Pattern</p>
             <div class="grid-2">
                 <div class="control-group">
-                    <label>Dot Pattern</label>
+                    <label>Central Pattern</label>
                     <select id="dotStyle">
                         <option value="square">Square</option>
                         <option value="dots">Dots</option>
@@ -309,12 +269,14 @@
                     </select>
                 </div>
             </div>
-            <div class="slider-row" style="margin-top:.9rem">
-                <label>Size <span class="slider-val" id="sizeLabel">300</span><span class="slider-unit">px</span></label>
+            <!-- QR Size -->
+            <div class="control-group" style="margin-top:.85rem">
+                <label>QR Size — <span id="sizeLabel">300</span>px</label>
                 <input type="range" id="qrSize" min="150" max="600" step="10" value="300" class="range-slider">
             </div>
-            <div class="slider-row">
-                <label>Margin <span class="slider-val" id="marginLabel">16</span><span class="slider-unit">px</span></label>
+            <!-- Margin -->
+            <div class="control-group" style="margin-top:.85rem">
+                <label>Quiet Zone (margin) — <span id="marginLabel">16</span>px</label>
                 <input type="range" id="qrMargin" min="0" max="60" step="4" value="16" class="range-slider">
             </div>
         </div>
@@ -323,40 +285,39 @@
 
         <!-- ── COLORS ── -->
         <div class="section-block">
-            <div class="section-header">
-                <span class="section-label">Colors</span>
+            <p class="section-title">Colors</p>
+
+            <!-- Preset Themes -->
+            <div class="theme-presets" id="themePresets">
+                <button class="preset-btn" data-preset="classic" title="Classic">⬛</button>
+                <button class="preset-btn" data-preset="ocean" title="Ocean">🌊</button>
+                <button class="preset-btn" data-preset="forest" title="Forest">🌲</button>
+                <button class="preset-btn" data-preset="rose" title="Rose">🌹</button>
+                <button class="preset-btn" data-preset="neon" title="Neon">⚡</button>
+                <button class="preset-btn" data-preset="gold" title="Gold">✨</button>
+                <button class="preset-btn" data-preset="midnight" title="Midnight">🌙</button>
             </div>
-            <div class="preset-strip" id="themePresets">
-                <button class="preset-swatch" data-preset="classic" title="Classic" style="background:#000"></button>
-                <button class="preset-swatch" data-preset="ocean"   title="Ocean"   style="background:linear-gradient(135deg,#0369a1,#0c4a6e)"></button>
-                <button class="preset-swatch" data-preset="forest"  title="Forest"  style="background:linear-gradient(135deg,#166534,#14532d)"></button>
-                <button class="preset-swatch" data-preset="rose"    title="Rose"    style="background:linear-gradient(135deg,#be123c,#881337)"></button>
-                <button class="preset-swatch" data-preset="neon"    title="Neon"    style="background:linear-gradient(135deg,#39ff14,#00ffff)"></button>
-                <button class="preset-swatch" data-preset="gold"    title="Gold"    style="background:linear-gradient(135deg,#f59e0b,#d97706)"></button>
-                <button class="preset-swatch" data-preset="midnight" title="Midnight" style="background:linear-gradient(135deg,#6366f1,#a5b4fc)"></button>
-            </div>
-            <div class="color-grid">
-                <div class="color-swatch-group">
-                    <input type="color" id="bgColor" value="#ffffff" class="color-picker-input">
-                    <div class="color-swatch-info">
-                        <span class="color-swatch-name">Background</span>
-                        <div class="inline-check">
-                            <input type="checkbox" id="transparentBg">
-                            <label for="transparentBg">Transparent</label>
-                        </div>
+
+            <div class="grid-2" style="margin-top:.85rem">
+                <div class="control-group">
+                    <label>Background</label>
+                    <input type="color" id="bgColor" value="#ffffff">
+                    <div class="inline-check" style="margin-top:.3rem">
+                        <input type="checkbox" id="transparentBg">
+                        <label for="transparentBg">Transparent</label>
                     </div>
                 </div>
-                <div class="color-swatch-group">
-                    <input type="color" id="dotColor" value="#000000" class="color-picker-input">
-                    <span class="color-swatch-name">Pattern</span>
+                <div class="control-group">
+                    <label>Pattern Color</label>
+                    <input type="color" id="dotColor" value="#000000">
                 </div>
-                <div class="color-swatch-group">
-                    <input type="color" id="cornerSquareColor" value="#000000" class="color-picker-input">
-                    <span class="color-swatch-name">Outer Corner</span>
+                <div class="control-group">
+                    <label>Outer Corner</label>
+                    <input type="color" id="cornerSquareColor" value="#000000">
                 </div>
-                <div class="color-swatch-group">
-                    <input type="color" id="cornerDotColor" value="#000000" class="color-picker-input">
-                    <span class="color-swatch-name">Inner Corner</span>
+                <div class="control-group">
+                    <label>Inner Corner</label>
+                    <input type="color" id="cornerDotColor" value="#000000">
                 </div>
             </div>
         </div>
@@ -365,51 +326,44 @@
 
         <!-- ── LOGO ── -->
         <div class="section-block">
-            <div class="section-header">
-                <span class="section-label">Logo</span>
+            <p class="section-title">Logo</p>
+            <div class="control-group">
+                <label>Upload Image</label>
+                <input type="file" id="logoUpload" accept="image/*">
             </div>
-            <label class="file-drop-zone" for="logoUpload">
-                <span class="file-drop-icon">⬆</span>
-                <span class="file-drop-text">Drop image or <u>browse</u></span>
-                <input type="file" id="logoUpload" accept="image/*" style="display:none">
-            </label>
-            <div class="grid-2" style="margin-top:.85rem">
-                <div class="slider-row">
-                    <label>Size <span class="slider-val" id="logoSizeLabel">40</span><span class="slider-unit">%</span></label>
+            <div class="grid-2" style="margin-top:.75rem">
+                <div class="control-group">
+                    <label>Logo Size — <span id="logoSizeLabel">40</span>%</label>
                     <input type="range" id="logoSize" min="10" max="60" step="5" value="40" class="range-slider">
                 </div>
-                <div class="slider-row">
-                    <label>Margin <span class="slider-val" id="logoMarginLabel">6</span><span class="slider-unit">px</span></label>
+                <div class="control-group">
+                    <label>Logo Margin — <span id="logoMarginLabel">6</span>px</label>
                     <input type="range" id="logoMargin" min="0" max="20" step="2" value="6" class="range-slider">
                 </div>
             </div>
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-top:.75rem">
-                <div class="inline-check">
-                    <input type="checkbox" id="hideDots" checked>
-                    <label for="hideDots">Hide dots behind logo</label>
-                </div>
-                <button class="pill-btn danger" id="clearLogoBtn">✕ Remove</button>
+            <div class="inline-check" style="margin-top:.75rem">
+                <input type="checkbox" id="hideDots" checked>
+                <label for="hideDots">Hide dots behind logo</label>
             </div>
+            <button class="ghost-btn" id="clearLogoBtn" style="margin-top:.75rem">✕ Remove Logo</button>
         </div>
 
         <div class="divider"></div>
 
         <!-- ── FRAME ── -->
         <div class="section-block">
-            <div class="section-header">
-                <span class="section-label">Frame & Label</span>
-                <label class="toggle-switch">
-                    <input type="checkbox" id="enableFrame">
-                    <span class="toggle-track"><span class="toggle-thumb"></span></span>
-                </label>
+            <p class="section-title">Frame & Label</p>
+            <div class="inline-check" style="margin-bottom:.75rem">
+                <input type="checkbox" id="enableFrame">
+                <label for="enableFrame">Add frame around QR</label>
             </div>
             <div id="frameOptions" class="frame-options hidden">
                 <div class="grid-2">
-                    <div class="control-group"><label>Frame Color</label><input type="color" id="frameColor" value="#6366f1" class="color-picker-input"></div>
+                    <div class="control-group"><label>Frame Color</label><input type="color" id="frameColor" value="#4f6ef7"></div>
                     <div class="control-group"><label>Label Text</label><input type="text" id="frameLabel" placeholder="SCAN ME"></div>
-                    <div class="control-group"><label>Text Color</label><input type="color" id="frameLabelColor" value="#ffffff" class="color-picker-input"></div>
+                    <div class="control-group"><label>Text Color</label><input type="color" id="frameLabelColor" value="#ffffff"></div>
                     <div class="control-group">
-                        <label>Style</label>
+                        <label>Frame Style</label>
                         <select id="frameStyle">
                             <option value="simple">Simple Border</option>
                             <option value="banner">Bottom Banner</option>
@@ -424,48 +378,34 @@
 
     <!-- ===== RIGHT: PREVIEW ===== -->
     <div class="preview-panel">
-        <div class="preview-header">
-            <span class="section-label">Preview</span>
-            <span class="live-badge">● LIVE</span>
+        <p class="section-title" style="align-self:flex-start">Preview</p>
+
+        <div id="qr-wrapper">
+            <div id="qr-canvas"></div>
         </div>
 
-        <div class="qr-stage">
-            <div id="qr-wrapper">
-                <div id="qr-canvas"></div>
-            </div>
-            <div class="qr-stage-shine" aria-hidden="true"></div>
+        <!-- Export buttons -->
+        <div class="export-btns">
+            <button class="download-btn primary-btn" id="downloadPng">⬇ PNG</button>
+            <button class="download-btn ghost-btn"   id="downloadSvg">⬇ SVG</button>
+            <button class="download-btn ghost-btn"   id="downloadJpeg">⬇ JPEG</button>
+            <button class="download-btn ghost-btn"   id="copyClipboard">⧉ Copy</button>
         </div>
 
-        <!-- Export -->
-        <div class="export-section">
-            <button class="export-primary" id="downloadPng">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                Save as PNG
-            </button>
-            <div class="export-secondary-row">
-                <button class="export-ghost" id="downloadSvg">SVG</button>
-                <button class="export-ghost" id="downloadJpeg">JPEG</button>
-                <button class="export-ghost" id="copyClipboard">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                    Copy
-                </button>
-            </div>
-        </div>
+        <!-- Toast -->
+        <div id="toast" class="toast hidden">✓ Copied to clipboard!</div>
 
         <!-- History -->
         <div class="history-section">
             <div class="history-header">
-                <span class="section-label" style="margin:0">Recent</span>
-                <button class="pill-btn" id="clearHistory">Clear all</button>
+                <p class="section-title" style="margin:0">Recent</p>
+                <button class="ghost-btn small" id="clearHistory">Clear</button>
             </div>
             <div id="historyList" class="history-list"></div>
         </div>
-
-        <!-- Toast -->
-        <div id="toast" class="toast hidden"></div>
     </div>
 
-</div>
+</div><!-- end .container -->
 
 <script src="app.js"></script>
 </body>
